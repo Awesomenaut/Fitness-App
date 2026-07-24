@@ -1,8 +1,9 @@
 import Foundation
 
 /// Loads the bundled exercise library once and serves lookups to the rest of the app.
-@MainActor
-final class ExerciseCatalog {
+/// Immutable after init, so it's safe to read from any isolation context (including
+/// the nonisolated `catalogExercise` computed properties on the SwiftData models).
+final class ExerciseCatalog: Sendable {
     static let shared = ExerciseCatalog()
 
     let all: [Exercise]
